@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @Value("${test.hello:TEST}")
+    @Value("${test.hello}")
     private String testHello;
 
     @GetMapping("/hello")
