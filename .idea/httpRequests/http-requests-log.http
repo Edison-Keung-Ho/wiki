@@ -1,3 +1,15 @@
+GET http://localhost:8880/list
+Accept: application/json
+
+<> 2022-05-18T114622.200.json
+
+###
+
+GET http://localhost:8880/list
+Accept: application/json
+
+###
+
 GET http://localhost:8880/hello
 Accept: application/json
 

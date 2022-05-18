@@ -1,8 +1,12 @@
 package com.jiawa.wiki.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.jiawa.wiki.domain.Test;
+import com.jiawa.wiki.service.TestService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Author: EdisonHo
@@ -11,11 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @Value("${test.hello}")
-    private String testHello;
+//    @Value("${test.hello}:Test")
+//    private String testHello;
 
-    @GetMapping("/hello")
-    public String Hello(){
-        return "hello" + testHello;
+
+    @Resource
+    private TestService testService;
+
+//    @GetMapping("/hello")
+//    public String Hello(){
+//        return "hello" + testHello;
+//    }
+
+
+
+    @GetMapping("/list")
+    public List<Test> list(){
+        return testService.list();
     }
 }
