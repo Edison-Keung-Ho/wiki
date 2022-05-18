@@ -105,11 +105,13 @@ export default defineComponent({
       { type: 'MessageOutlined', text: '2' },
     ];
 
+    onMounted(() =>{
+      axios.get(process.env.VUE_APP_SERVER + "/ebook/list").then((response) =>{
+        console.log(response);
+        ebooks.value = response.data.content;
+      });
+    });
 
-    axios.get("http://localhost:8880/ebook/list").then((response) =>{
-      console.log(response);
-      ebooks.value = response.data.content;
-    })
 
     return {
       ebooks,
