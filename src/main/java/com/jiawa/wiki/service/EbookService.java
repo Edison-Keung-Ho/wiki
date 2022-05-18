@@ -5,7 +5,7 @@ import com.jiawa.wiki.domain.EbookExample;
 import com.jiawa.wiki.mapper.EbookMapper;
 import com.jiawa.wiki.req.EbookReq;
 import com.jiawa.wiki.resp.EbookResp;
-import org.springframework.beans.BeanUtils;
+import com.jiawa.wiki.utils.CopyUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,8 +31,7 @@ public class EbookService {
         List<Ebook> ebooks = ebookMapper.selectByExample(ebookExample);
 
         List<EbookResp> ebookResps = ebooks.stream().map((item) -> {
-            EbookResp ebookResp = new EbookResp();
-            BeanUtils.copyProperties(item, ebookResp);
+            EbookResp ebookResp = CopyUtil.copy(item, EbookResp.class);
             return ebookResp;
         }).collect(Collectors.toList());
 
