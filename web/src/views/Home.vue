@@ -90,7 +90,7 @@ export default defineComponent({
   name: 'Home',
 
   setup(){
-    console.log("setup");
+    // console.log("setup");
 
     const ebooks = ref();
     const pagination = {
@@ -106,8 +106,8 @@ export default defineComponent({
     ];
 
     onMounted(() =>{
-      axios.get(process.env.VUE_APP_SERVER + "/ebook/list").then((response) =>{
-        console.log(response);
+      axios.get("/ebook/list").then((response) =>{
+        // console.log(response);
         ebooks.value = response.data.content;
       });
     });
