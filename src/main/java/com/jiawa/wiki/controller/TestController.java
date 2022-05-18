@@ -2,6 +2,7 @@ package com.jiawa.wiki.controller;
 
 import com.jiawa.wiki.domain.Test;
 import com.jiawa.wiki.service.TestService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,8 +16,8 @@ import java.util.List;
 @RestController
 public class TestController {
 
-//    @Value("${test.hello}:Test")
-//    private String testHello;
+    @Value("${test.hello:Test}")
+    private String testHello;
 
 
     @Resource
@@ -29,7 +30,7 @@ public class TestController {
 
 
 
-    @GetMapping("/list")
+    @GetMapping("/test/list")
     public List<Test> list(){
         return testService.list();
     }
