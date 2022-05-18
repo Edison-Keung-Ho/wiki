@@ -106,9 +106,9 @@ export default defineComponent({
     ];
 
 
-    axios.get("http://localhost:8880/ebook/list?name=Spring").then((response) =>{
+    axios.get("http://localhost:8880/ebook/list").then((response) =>{
       console.log(response);
-      ebooks.value = response.data;
+      ebooks.value = response.data.content;
     })
 
     return {
@@ -120,3 +120,14 @@ export default defineComponent({
   }
 });
 </script>
+
+
+<style scoped>
+  .ant-avatar {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 8%;
+    margin: 5px 0;
+  }
+</style>
