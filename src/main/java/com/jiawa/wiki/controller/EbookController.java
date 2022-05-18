@@ -1,5 +1,6 @@
 package com.jiawa.wiki.controller;
 
+import com.jiawa.wiki.common.R;
 import com.jiawa.wiki.domain.Ebook;
 import com.jiawa.wiki.service.EbookService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +19,13 @@ import java.util.List;
 public class EbookController {
 
 
-
     @Resource
     private EbookService ebookService;
 
 
     @GetMapping("/list")
-    public List<Ebook> list() {
-        return ebookService.list();
+    public R<List<Ebook>> list() {
+
+        return R.success(ebookService.list());
     }
 }
