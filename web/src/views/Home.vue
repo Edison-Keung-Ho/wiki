@@ -45,14 +45,14 @@
         </a-menu>
       </a-layout-sider>
       <a-layout-content :style="{ padding: '0 24px', minHeight: '280px' }">
-        Content
+        {{ebooks}}
       </a-layout-content>
     </a-layout>
   </a-layout-content>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent,onMounted,ref } from 'vue';
 import axios from 'axios'
 
 export default defineComponent({
@@ -60,9 +60,18 @@ export default defineComponent({
 
   setup(){
     console.log("setup");
+
+    const ebooks = ref();
+
+
     axios.get("http://localhost:8880/ebook/list?name=Spring").then((response) =>{
       console.log(response);
+      ebooks.value = response.data;
     })
+
+    return {
+      ebooks
+    }
   }
 });
 </script>
