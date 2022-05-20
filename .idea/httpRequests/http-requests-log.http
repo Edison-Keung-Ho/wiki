@@ -1,3 +1,17 @@
+GET http://localhost:8880/ebook/list
+Accept: application/json
+
+<> 2022-05-20T064418.200.json
+
+###
+
+GET http://localhost:8880/ebook/list?name=spring
+Accept: application/json
+
+<> 2022-05-20T064412.200.json
+
+###
+
 GET http://localhost:8880/ebook/list?name=spring
 Accept: application/json
 

@@ -1,11 +1,14 @@
 package com.jiawa.wiki.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jiawa.wiki.domain.Ebook;
 import com.jiawa.wiki.domain.EbookExample;
 import com.jiawa.wiki.mapper.EbookMapper;
 import com.jiawa.wiki.req.EbookReq;
 import com.jiawa.wiki.resp.EbookResp;
 import com.jiawa.wiki.utils.CopyUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -18,8 +21,10 @@ import java.util.stream.Collectors;
  * Date: 2022/5/18
  */
 
+@Slf4j
 @Service
 public class EbookService {
+    
 
     @Resource
     private EbookMapper ebookMapper;
@@ -30,7 +35,8 @@ public class EbookService {
 
         if(!ObjectUtils.isEmpty(req.getName()))
             criteria.andNameLike("%" + req.getName() + "%");
-
+        
+        PageHelper.startPage(1,3);
         List<Ebook> ebooks = ebookMapper.selectByExample(ebookExample);
 
         List<EbookResp> ebookResps = ebooks.stream().map((item) -> {
@@ -38,6 +44,10 @@ public class EbookService {
             return ebookResp;
         }).collect(Collectors.toList());
 
+
+        PageInfo<EbookResp> ebookRespPageInfo = new PageInfo<>(ebookResps);
+        log.info("总数目" + ebookRespPageInfo.getTotal());
+        log.info("总页数" + ebookRespPageInfo.getPages());
         return ebookResps;
     }
 
