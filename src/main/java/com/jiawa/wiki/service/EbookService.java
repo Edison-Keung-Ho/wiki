@@ -7,6 +7,7 @@ import com.jiawa.wiki.domain.EbookExample;
 import com.jiawa.wiki.mapper.EbookMapper;
 import com.jiawa.wiki.req.EbookReq;
 import com.jiawa.wiki.resp.EbookResp;
+import com.jiawa.wiki.resp.PageResp;
 import com.jiawa.wiki.utils.CopyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,14 +30,14 @@ public class EbookService {
     @Resource
     private EbookMapper ebookMapper;
 
-    public List<EbookResp> list(EbookReq req){
+    public PageResp<EbookResp> list(EbookReq req){
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
 
         if(!ObjectUtils.isEmpty(req.getName()))
             criteria.andNameLike("%" + req.getName() + "%");
         
-        PageHelper.startPage(1,3);
+        PageHelper.startPage(req.getPage(),req.getSize());
         List<Ebook> ebooks = ebookMapper.selectByExample(ebookExample);
 
         List<EbookResp> ebookResps = ebooks.stream().map((item) -> {
@@ -48,7 +49,11 @@ public class EbookService {
         PageInfo<EbookResp> ebookRespPageInfo = new PageInfo<>(ebookResps);
         log.info("总数目" + ebookRespPageInfo.getTotal());
         log.info("总页数" + ebookRespPageInfo.getPages());
-        return ebookResps;
+
+        PageResp<EbookResp> ebookPageResp = new PageResp<>();
+        ebookPageResp.setList(ebookResps);
+        ebookPageResp.setTotal(ebookRespPageInfo.getTotal());
+        return ebookPageResp;
     }
 
 }
