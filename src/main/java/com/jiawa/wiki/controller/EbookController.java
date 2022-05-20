@@ -36,4 +36,11 @@ public class EbookController {
 
         return R.success(null);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public R delete(@PathVariable Long id){
+        ebookService.delete(id);
+
+        return R.success(null);
+    }
 }
