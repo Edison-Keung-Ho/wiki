@@ -9,6 +9,7 @@ import com.jiawa.wiki.service.EbookService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * Author: EdisonHo
@@ -24,7 +25,7 @@ public class EbookController {
 
 
     @GetMapping("/list")
-    public R<PageResp<EbookResp>> list(EbookReq req) {
+    public R<PageResp<EbookResp>> list(@Valid EbookReq req) {
 
         return R.success(ebookService.list(req));
     }
