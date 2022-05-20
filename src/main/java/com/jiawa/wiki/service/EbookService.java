@@ -9,6 +9,7 @@ import com.jiawa.wiki.req.EbookReq;
 import com.jiawa.wiki.resp.EbookResp;
 import com.jiawa.wiki.resp.PageResp;
 import com.jiawa.wiki.utils.CopyUtil;
+import com.jiawa.wiki.utils.SnowFlake;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -29,6 +30,9 @@ public class EbookService {
 
     @Resource
     private EbookMapper ebookMapper;
+
+    @Resource
+    private SnowFlake snowFlake;
 
     public PageResp<EbookResp> list(EbookReq req){
         EbookExample ebookExample = new EbookExample();
@@ -54,6 +58,15 @@ public class EbookService {
         ebookPageResp.setList(ebookResps);
         ebookPageResp.setTotal(ebookRespPageInfo.getTotal());
         return ebookPageResp;
+    }
+
+    public void save(Ebook ebook){
+        if(ObjectUtils.isEmpty(ebook.getId())){
+            ebook.setId(snowFlake.nextId());
+            ebookMapper.insert(ebook);
+        }else
+            ebookMapper.updateByPrimaryKey(ebook);
+
     }
 
 }
